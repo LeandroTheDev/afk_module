@@ -1,0 +1,13 @@
+{
+    "type": "code",
+    "modid": "afkmodule",
+    "name": "AFKModule",
+    "authors": [
+        "BoboDev"
+    ],
+    "description": "AFK Modules to help manage idle players",
+    "version": "1.0.0",
+    "dependencies": {
+        "game": ""
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "millisecondsPerModule": 1000,
+
+    "enableModuleMoviment": true,
+    "softAfkThresholdMoviment": 10,
+    "fullAfkThresholdMoviment": 200,
+    "lastDistanceToCountAsThresholdMoviment": 1.0,
+
+    "enableModuleCamera": true,
+    "softAfkThresholdCamera": 20,
+    "fullAfkThresholdCamera": 400,
+    "lastYawDistanceToCountAsThresholdCamera": 1.0,
+    "lastPitchDistanceToCountAsThresholdCamera": 1.0,
+
+    "kickWhenFullAfk": true,
+    "kickMessageToPlayerKicked": "Disconnected due to being idle.",
+    "enableExtendedLog": false
+}
