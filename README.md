@@ -13,17 +13,17 @@ You are free to fork the project and make your own version of AFK Module, as lon
 ### Building
 Learn more about vintage story modding in [Linux](https://github.com/LeandroTheDev/arch_linux/wiki/Games#vintage-story-modding) or [Windows](https://wiki.vintagestory.at/index.php/Modding:Setting_up_your_Development_Environment)
 
-Download the mod template for vintage store with name LevelUP and paste all contents from this project in there
+Download the mod template for vintage store with name AFKModule and paste all contents from this project in there
 
 > Linux
 
 Make a symbolic link for fast tests
 
-ln -s /path/to/project/Releases/levelup/* /path/to/game/Mods/AFKModule/
+ln -s /path/to/project/Releases/afkmodule/* /path/to/game/Mods/AFKModule/
 Execute the comamnd ./build.sh, consider having setup everthing from vintage story ide before
 
 > Windows
 
-Just open the visual studio with LevelUP.sln
+Just open the visual studio with AFKModule.sln
 
 FTM License
