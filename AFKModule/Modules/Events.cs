@@ -9,11 +9,23 @@ public static class Events
     public static readonly List<string> playersSoftAfk = [];
     public static readonly List<string> playersFullAfk = [];
 
+    private static readonly Dictionary<string, List<string>> modulesSoftAFK = [];
+    private static readonly Dictionary<string, List<string>> modulesFullAFK = [];
+
     #region Camera
     public static event EventHandler OnSoftAFKCamera;
     internal static void InvokeOnSoftAFKCamera(IServerPlayer player)
     {
         OnSoftAFKCamera?.Invoke(player, null);
+
+        // Add it to the modules
+        if (modulesSoftAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (!modules.Contains("Camera")) modulesSoftAFK[player.PlayerUID].Add("Camera");
+        }
+        else modulesSoftAFK.Add(player.PlayerUID, ["Camera"]);
+
+        // Global afk system
         if (!playersSoftAfk.Contains(player.PlayerUID))
             playersSoftAfk.Add(player.PlayerUID);
     }
@@ -22,6 +34,15 @@ public static class Events
     internal static void InvokeOnFullAFKCamera(IServerPlayer player)
     {
         OnFullAFKCamera?.Invoke(player, null);
+
+        // Add it to the modules
+        if (modulesFullAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (!modules.Contains("Camera")) modulesFullAFK[player.PlayerUID].Add("Camera");
+        }
+        else modulesFullAFK.Add(player.PlayerUID, ["Camera"]);
+
+        // Global afk system
         if (!playersFullAfk.Contains(player.PlayerUID))
             playersFullAfk.Add(player.PlayerUID);
     }
@@ -30,16 +51,37 @@ public static class Events
     internal static void InvokeExitSoftAFKCamera(IServerPlayer player)
     {
         ExitSoftAFKCamera?.Invoke(player, null);
-        if (!playersSoftAfk.Contains(player.PlayerUID))
-            playersSoftAfk.Add(player.PlayerUID);
+
+        // Remove module
+        if (modulesSoftAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (modules.Contains("Camera")) modulesSoftAFK[player.PlayerUID].Remove("Camera");
+            if (modulesSoftAFK[player.PlayerUID].Count == 0)
+            {
+
+                modulesSoftAFK.Remove(player.PlayerUID);
+                playersSoftAfk.Remove(player.PlayerUID);
+            }
+        }
+        else playersSoftAfk.Remove(player.PlayerUID);
     }
 
     public static event EventHandler ExitFullAFKCamera;
     internal static void InvokeExitFullAFKCamera(IServerPlayer player)
     {
         ExitFullAFKCamera?.Invoke(player, null);
-        if (!playersFullAfk.Contains(player.PlayerUID))
-            playersFullAfk.Add(player.PlayerUID);
+
+        // Remove module
+        if (modulesFullAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (modules.Contains("Camera")) modulesFullAFK[player.PlayerUID].Remove("Camera");
+            if (modulesFullAFK[player.PlayerUID].Count == 0)
+            {
+                modulesFullAFK.Remove(player.PlayerUID);
+                playersFullAfk.Remove(player.PlayerUID);
+            }
+        }
+        else playersFullAfk.Remove(player.PlayerUID);
     }
     #endregion
 
@@ -48,6 +90,15 @@ public static class Events
     internal static void InvokeOnSoftAFKMoviment(IServerPlayer player)
     {
         OnSoftAFKMoviment?.Invoke(player, null);
+
+        // Add it to the modules
+        if (modulesSoftAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (!modules.Contains("Moviment")) modulesSoftAFK[player.PlayerUID].Add("Moviment");
+        }
+        else modulesSoftAFK.Add(player.PlayerUID, ["Moviment"]);
+
+        // Global afk system
         if (!playersSoftAfk.Contains(player.PlayerUID))
             playersSoftAfk.Add(player.PlayerUID);
     }
@@ -56,6 +107,15 @@ public static class Events
     internal static void InvokeOnFullAFKMoviment(IServerPlayer player)
     {
         OnFullAFKMoviment?.Invoke(player, null);
+
+        // Add it to the modules
+        if (modulesFullAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (!modules.Contains("Moviment")) modulesFullAFK[player.PlayerUID].Add("Moviment");
+        }
+        else modulesFullAFK.Add(player.PlayerUID, ["Moviment"]);
+
+        // Global afk system
         if (!playersFullAfk.Contains(player.PlayerUID))
             playersFullAfk.Add(player.PlayerUID);
     }
@@ -64,16 +124,36 @@ public static class Events
     internal static void InvokeExitSoftAFKMoviment(IServerPlayer player)
     {
         ExitSoftAFKMoviment?.Invoke(player, null);
-        if (!playersSoftAfk.Contains(player.PlayerUID))
-            playersSoftAfk.Add(player.PlayerUID);
+
+        // Remove module
+        if (modulesSoftAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (modules.Contains("Moviment")) modulesSoftAFK[player.PlayerUID].Remove("Moviment");
+            if (modulesSoftAFK[player.PlayerUID].Count == 0)
+            {
+                modulesSoftAFK.Remove(player.PlayerUID);
+                playersSoftAfk.Remove(player.PlayerUID);
+            }
+        }
+        else playersFullAfk.Remove(player.PlayerUID);
     }
 
     public static event EventHandler ExitFullAFKMoviment;
     internal static void InvokeExitFullAFKMoviment(IServerPlayer player)
     {
         ExitFullAFKMoviment?.Invoke(player, null);
-        if (!playersFullAfk.Contains(player.PlayerUID))
-            playersFullAfk.Add(player.PlayerUID);
+
+        // Remove module
+        if (modulesFullAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (modules.Contains("Moviment")) modulesFullAFK[player.PlayerUID].Remove("Moviment");
+            if (modulesFullAFK[player.PlayerUID].Count == 0)
+            {
+                modulesFullAFK.Remove(player.PlayerUID);
+                playersFullAfk.Remove(player.PlayerUID);
+            }
+        }
+        else playersFullAfk.Remove(player.PlayerUID);
     }
     #endregion
 }

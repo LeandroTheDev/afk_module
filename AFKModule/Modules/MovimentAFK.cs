@@ -31,7 +31,7 @@ public class MovimentAFK(IServerPlayer player)
         else
         {
             if (softAfk)
-            {
+            {                
                 softAfk = false;
                 Events.InvokeExitSoftAFKMoviment(_player);
             }
