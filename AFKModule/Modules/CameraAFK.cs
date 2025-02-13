@@ -76,6 +76,6 @@ public class CameraAFK(IServerPlayer player)
         lastPitch = _player.Entity.SidedPos.Pitch;
 
         if (Configuration.enableExtendedLog)
-            Debug.Log($"[Camera] {_player.PlayerName}: P/Y, {pitchDifference}/{yawDifference}");
+            Debug.Log($"[Camera] {_player.PlayerName}: P/Y, {pitchDifference}/{yawDifference}, Threshold: {actualthreshold}");
     }
 }

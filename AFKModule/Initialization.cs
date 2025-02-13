@@ -13,7 +13,7 @@ public class Initialization : ModSystem
     public override void StartServerSide(ICoreServerAPI api)
     {
         base.StartServerSide(api);
-        api.Event.Timer(TickrateModules, Configuration.millisecondsPerModule);
+        api.Event.RegisterGameTickListener(TickrateModules, Configuration.millisecondsPerModule);
         api.Event.PlayerNowPlaying += PlayerJoined;
         api.Event.PlayerDisconnect += PlayerDisconnected;
 
@@ -22,7 +22,9 @@ public class Initialization : ModSystem
             Events.OnFullAFKCamera += KickAFKPlayer;
             Events.OnFullAFKMoviment += KickAFKPlayer;
         }
+        Debug.Log("Events created");
     }
+
 
     private void KickAFKPlayer(object sender, EventArgs e)
         => (sender as IServerPlayer).Disconnect(Configuration.kickMessageToPlayerKicked);
@@ -51,8 +53,8 @@ public class Initialization : ModSystem
         playersAFKObject.Add(byPlayer.PlayerUID, modules);
     }
 
-    private void TickrateModules()
-    {
+    private void TickrateModules(float obj)
+    {        
         foreach (var dictionary in playersAFKObject)
         {
             string playerUID = dictionary.Key;

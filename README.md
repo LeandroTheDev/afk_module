@@ -11,19 +11,11 @@ If you want to contribute into the project you can access the project github and
 You are free to fork the project and make your own version of AFK Module, as long the name is changed.
 
 ### Building
-Learn more about vintage story modding in [Linux](https://github.com/LeandroTheDev/arch_linux/wiki/Games#vintage-story-modding) or [Windows](https://wiki.vintagestory.at/index.php/Modding:Setting_up_your_Development_Environment)
+- Install .NET in your system, open terminal type: ``dotnet new install VintageStory.Mod.Templates``
+- Create a template with the name ``AFKModule``: ``dotnet new vsmod --AddSolutionFile -o AFKModule``
+- [Clone the repository](https://github.com/LeandroTheDev/afk_module/archive/refs/heads/main.zip)
+- Copy the ``CakeBuild`` and ``build.ps1`` or ``build.sh`` and paste inside the repository
 
-Download the mod template for vintage store with name AFKModule and paste all contents from this project in there
-
-> Linux
-
-Make a symbolic link for fast tests
-
-ln -s /path/to/project/Releases/afkmodule/* /path/to/game/Mods/AFKModule/
-Execute the comamnd ./build.sh, consider having setup everthing from vintage story ide before
-
-> Windows
-
-Just open the visual studio with AFKModule.sln
+Now you can build using the ``build.ps1`` or ``build.sh`` file
 
 FTM License

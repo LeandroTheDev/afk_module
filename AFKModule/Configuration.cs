@@ -79,7 +79,7 @@ public static class Configuration
 
 
     #region baseconfigs
-    public static double millisecondsPerModule = 0.5;
+    public static int millisecondsPerModule = 1000;
 
     #region Module Moviment
     public static bool enableModuleMoviment = true;

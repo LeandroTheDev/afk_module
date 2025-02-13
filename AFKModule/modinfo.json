@@ -6,7 +6,8 @@
         "BoboDev"
     ],
     "description": "AFK Modules to help manage idle players",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "side": "server",
     "dependencies": {
         "game": ""
     }

@@ -56,6 +56,6 @@ public class MovimentAFK(IServerPlayer player)
         lastPosition = _player.Entity.Pos.Copy();
 
         if (Configuration.enableExtendedLog)
-            Debug.Log($"[Moviment] {_player.PlayerName}: {tickDistance}");
+            Debug.Log($"[Moviment] {_player.PlayerName}: {tickDistance}, Threshold: {actualthreshold}");
     }
 }

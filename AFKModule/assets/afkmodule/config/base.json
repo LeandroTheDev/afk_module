@@ -9,8 +9,8 @@
     "enableModuleCamera": true,
     "softAfkThresholdCamera": 20,
     "fullAfkThresholdCamera": 400,
-    "lastYawDistanceToCountAsThresholdCamera": 1.0,
-    "lastPitchDistanceToCountAsThresholdCamera": 1.0,
+    "lastYawDistanceToCountAsThresholdCamera": 0.1,
+    "lastPitchDistanceToCountAsThresholdCamera": 0.1,
 
     "kickWhenFullAfk": true,
     "kickMessageToPlayerKicked": "Disconnected due to being idle.",
