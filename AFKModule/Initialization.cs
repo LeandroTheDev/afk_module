@@ -38,6 +38,8 @@ public class Initialization : ModSystem
     private void PlayerDisconnected(IServerPlayer byPlayer)
     {
         playersAFKObject.Remove(byPlayer.PlayerUID);
+        Events.playersFullAfk.Remove(byPlayer.PlayerUID);
+        Events.playersSoftAfk.Remove(byPlayer.PlayerUID);
     }
 
     private void PlayerJoined(IServerPlayer byPlayer)
@@ -54,7 +56,7 @@ public class Initialization : ModSystem
     }
 
     private void TickrateModules(float obj)
-    {        
+    {
         foreach (var dictionary in playersAFKObject)
         {
             string playerUID = dictionary.Key;
