@@ -156,4 +156,76 @@ public static class Events
         else playersFullAfk.Remove(player.PlayerUID);
     }
     #endregion
+
+    #region Death
+    public static event EventHandler OnSoftAFKDeath;
+    internal static void InvokeOnSoftAFKDeath(IServerPlayer player)
+    {
+        OnSoftAFKDeath?.Invoke(player, null);
+
+        // Add it to the modules
+        if (modulesSoftAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (!modules.Contains("Death")) modulesSoftAFK[player.PlayerUID].Add("Death");
+        }
+        else modulesSoftAFK.Add(player.PlayerUID, ["Death"]);
+
+        // Global afk system
+        if (!playersSoftAfk.Contains(player.PlayerUID))
+            playersSoftAfk.Add(player.PlayerUID);
+    }
+
+    public static event EventHandler OnFullAFKDeath;
+    internal static void InvokeOnFullAFKDeath(IServerPlayer player)
+    {
+        OnFullAFKDeath?.Invoke(player, null);
+
+        // Add it to the modules
+        if (modulesFullAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (!modules.Contains("Death")) modulesFullAFK[player.PlayerUID].Add("Death");
+        }
+        else modulesFullAFK.Add(player.PlayerUID, ["Death"]);
+
+        // Global afk system
+        if (!playersFullAfk.Contains(player.PlayerUID))
+            playersFullAfk.Add(player.PlayerUID);
+    }
+
+    public static event EventHandler ExitSoftAFKDeath;
+    internal static void InvokeExitSoftAFKDeath(IServerPlayer player)
+    {
+        ExitSoftAFKDeath?.Invoke(player, null);
+
+        // Remove module
+        if (modulesSoftAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (modules.Contains("Death")) modulesSoftAFK[player.PlayerUID].Remove("Death");
+            if (modulesSoftAFK[player.PlayerUID].Count == 0)
+            {
+                modulesSoftAFK.Remove(player.PlayerUID);
+                playersSoftAfk.Remove(player.PlayerUID);
+            }
+        }
+        else playersFullAfk.Remove(player.PlayerUID);
+    }
+
+    public static event EventHandler ExitFullAFKDeath;
+    internal static void InvokeExitFullAFKDeath(IServerPlayer player)
+    {
+        ExitFullAFKDeath?.Invoke(player, null);
+
+        // Remove module
+        if (modulesFullAFK.TryGetValue(player.PlayerUID, out List<string> modules))
+        {
+            if (modules.Contains("Death")) modulesFullAFK[player.PlayerUID].Remove("Death");
+            if (modulesFullAFK[player.PlayerUID].Count == 0)
+            {
+                modulesFullAFK.Remove(player.PlayerUID);
+                playersFullAfk.Remove(player.PlayerUID);
+            }
+        }
+        else playersFullAfk.Remove(player.PlayerUID);
+    }
+    #endregion
 }

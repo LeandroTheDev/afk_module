@@ -12,6 +12,12 @@
     "lastYawDistanceToCountAsThresholdCamera": 0.1,
     "lastPitchDistanceToCountAsThresholdCamera": 0.1,
 
+    "enableModuleDeath": false,
+    "softAfkThresholdDeath": 0,
+    "fullAfkThresholdDeath": 20,
+    "botAlertMaxDeathsPerModule": 10,
+    "reduceDeathCountModulePerSecond": 120,
+
     "kickWhenFullAfk": true,
     "kickMessageToPlayerKicked": "Disconnected due to being idle.",
     "enableExtendedLog": false

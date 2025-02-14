@@ -94,8 +94,17 @@ public static class Configuration
     public static double lastYawDistanceToCountAsThresholdCamera = 1.0;
     public static double lastPitchDistanceToCountAsThresholdCamera = 1.0;
     #endregion
+    #region Module Death
+    public static bool enableModuleDeath = false;
+    public static int softAfkThresholdDeath = 0;
+    public static int fullAfkThresholdDeath = 20;
+    public static int botAlertMaxDeathsPerModule = 10;
+    public static int reduceDeathCountModulePerSecond = 120;
+    #endregion
+
     public static bool kickWhenFullAfk = true;
     public static string kickMessageToPlayerKicked = "";
+    public static bool playerJoinInSoftAFKState = false;
     public static bool enableExtendedLog = false;
 
     public static void UpdateBaseConfigurations(ICoreAPI api)
@@ -176,6 +185,41 @@ public static class Configuration
                 else lastPitchDistanceToCountAsThresholdCamera = (double)value;
             else Debug.Log("CONFIGURATION ERROR: lastPitchDistanceToCountAsThresholdCamera not set");
         }
+        { //enableModuleDeath
+            if (baseConfigs.TryGetValue("enableModuleDeath", out object value))
+                if (value is null) Debug.Log("CONFIGURATION ERROR: enableModuleDeath is null");
+                else if (value is not bool) Debug.Log($"CONFIGURATION ERROR: enableModuleDeath is not boolean is {value.GetType()}");
+                else enableModuleDeath = (bool)value;
+            else Debug.Log("CONFIGURATION ERROR: enableModuleDeath not set");
+        }
+        { //softAfkThresholdDeath
+            if (baseConfigs.TryGetValue("softAfkThresholdDeath", out object value))
+                if (value is null) Debug.Log("CONFIGURATION ERROR: softAfkThresholdDeath is null");
+                else if (value is not long) Debug.Log($"CONFIGURATION ERROR: softAfkThresholdDeath is not int is {value.GetType()}");
+                else softAfkThresholdDeath = (int)(long)value;
+            else Debug.Log("CONFIGURATION ERROR: softAfkThresholdDeath not set");
+        }
+        { //fullAfkThresholdDeath
+            if (baseConfigs.TryGetValue("fullAfkThresholdDeath", out object value))
+                if (value is null) Debug.Log("CONFIGURATION ERROR: fullAfkThresholdDeath is null");
+                else if (value is not long) Debug.Log($"CONFIGURATION ERROR: fullAfkThresholdDeath is not int is {value.GetType()}");
+                else fullAfkThresholdDeath = (int)(long)value;
+            else Debug.Log("CONFIGURATION ERROR: fullAfkThresholdDeath not set");
+        }
+        { //botAlertMaxDeathsPerModule
+            if (baseConfigs.TryGetValue("botAlertMaxDeathsPerModule", out object value))
+                if (value is null) Debug.Log("CONFIGURATION ERROR: botAlertMaxDeathsPerModule is null");
+                else if (value is not long) Debug.Log($"CONFIGURATION ERROR: botAlertMaxDeathsPerModule is not int is {value.GetType()}");
+                else botAlertMaxDeathsPerModule = (int)(long)value;
+            else Debug.Log("CONFIGURATION ERROR: botAlertMaxDeathsPerModule not set");
+        }
+        { //reduceDeathCountModulePerSecond
+            if (baseConfigs.TryGetValue("reduceDeathCountModulePerSecond", out object value))
+                if (value is null) Debug.Log("CONFIGURATION ERROR: reduceDeathCountModulePerSecond is null");
+                else if (value is not long) Debug.Log($"CONFIGURATION ERROR: reduceDeathCountModulePerSecond is not int is {value.GetType()}");
+                else reduceDeathCountModulePerSecond = (int)(long)value;
+            else Debug.Log("CONFIGURATION ERROR: reduceDeathCountModulePerSecond not set");
+        }
         { //kickWhenFullAfk
             if (baseConfigs.TryGetValue("kickWhenFullAfk", out object value))
                 if (value is null) Debug.Log("CONFIGURATION ERROR: kickWhenFullAfk is null");
@@ -189,6 +233,13 @@ public static class Configuration
                 else if (value is not string) Debug.Log($"CONFIGURATION ERROR: kickMessageToPlayerKicked is not string is {value.GetType()}");
                 else kickMessageToPlayerKicked = (string)value;
             else Debug.Log("CONFIGURATION ERROR: kickMessageToPlayerKicked not set");
+        }
+        { //playerJoinInSoftAFKState
+            if (baseConfigs.TryGetValue("playerJoinInSoftAFKState", out object value))
+                if (value is null) Debug.Log("CONFIGURATION ERROR: playerJoinInSoftAFKState is null");
+                else if (value is not bool) Debug.Log($"CONFIGURATION ERROR: playerJoinInSoftAFKState is not boolean is {value.GetType()}");
+                else playerJoinInSoftAFKState = (bool)value;
+            else Debug.Log("CONFIGURATION ERROR: playerJoinInSoftAFKState not set");
         }
         { //enableExtendedLog
             if (baseConfigs.TryGetValue("enableExtendedLog", out object value))

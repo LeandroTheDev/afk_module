@@ -1,4 +1,4 @@
-using Vintagestory.API.Common;
+using System;
 using Vintagestory.API.Server;
 
 namespace AFKModule.Modules;

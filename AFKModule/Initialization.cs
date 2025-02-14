@@ -10,9 +10,13 @@ public class Initialization : ModSystem
 {
     public static readonly Dictionary<string, List<object>> playersAFKObject = [];
 
+    private ICoreServerAPI serverAPI;
+
     public override void StartServerSide(ICoreServerAPI api)
     {
         base.StartServerSide(api);
+        serverAPI = api;
+
         api.Event.RegisterGameTickListener(TickrateModules, Configuration.millisecondsPerModule);
         api.Event.PlayerNowPlaying += PlayerJoined;
         api.Event.PlayerDisconnect += PlayerDisconnected;
@@ -37,9 +41,29 @@ public class Initialization : ModSystem
 
     private void PlayerDisconnected(IServerPlayer byPlayer)
     {
+        // Disposing modules
+        foreach (var dictionary in playersAFKObject)
+        {
+            if (dictionary.Key != byPlayer.PlayerUID) continue;
+
+            List<object> modules = dictionary.Value;
+            foreach (object module in modules)
+            {
+                switch (module.GetType().Name)
+                {
+                    case "DeathAFK":
+                        (module as DeathAFK).Dispose();
+                        break;
+                }
+            }
+            break;
+        }
+
         playersAFKObject.Remove(byPlayer.PlayerUID);
         Events.playersFullAfk.Remove(byPlayer.PlayerUID);
         Events.playersSoftAfk.Remove(byPlayer.PlayerUID);
+
+        GC.Collect();
     }
 
     private void PlayerJoined(IServerPlayer byPlayer)
@@ -47,9 +71,33 @@ public class Initialization : ModSystem
         List<object> modules = [];
 
         if (Configuration.enableModuleMoviment)
-            modules.Add(new MovimentAFK(byPlayer));
+        {
+            var module = new MovimentAFK(byPlayer);
+            if (Configuration.playerJoinInSoftAFKState)
+            {
+                module.actualthreshold = Configuration.softAfkThresholdCamera;
+                module.softAfk = true;
+            }
+
+            modules.Add(module);
+        }
         if (Configuration.enableModuleCamera)
-            modules.Add(new CameraAFK(byPlayer));
+        {
+            var module = new CameraAFK(byPlayer);
+            if (Configuration.playerJoinInSoftAFKState)
+            {
+                module.actualthreshold = Configuration.softAfkThresholdMoviment;
+                module.softAfk = true;
+            }
+
+            modules.Add(module);
+        }
+
+        if (Configuration.enableModuleDeath)
+        {
+            var module = new DeathAFK(byPlayer, serverAPI.Event);
+            modules.Add(module);
+        }
 
 
         playersAFKObject.Add(byPlayer.PlayerUID, modules);
@@ -71,6 +119,9 @@ public class Initialization : ModSystem
                         break;
                     case "CameraAFK":
                         (module as CameraAFK).OnTick();
+                        break;
+                    case "DeathAFK":
+                        (module as DeathAFK).OnTick();
                         break;
                 }
             }
