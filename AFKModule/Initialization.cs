@@ -98,6 +98,11 @@ public class Initialization : ModSystem
         if (Configuration.enableModuleDeath)
         {
             var module = new DeathAFK(byPlayer, serverAPI.Event);
+            if (Configuration.playerJoinInSoftAFKState)
+            {
+                module.actualthreshold = Configuration.softAfkThresholdDeath;
+                module.softAfk = true;
+            }
             modules.Add(module);
         }
 
