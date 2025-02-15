@@ -4,12 +4,12 @@
     "enableModuleMoviment": true,
     "softAfkThresholdMoviment": 10,
     "fullAfkThresholdMoviment": 200,
-    "lastDistanceToCountAsThresholdMoviment": 1.0,
+    "lastDistanceToCountAsThresholdMoviment": 0.5,
 
     "enableModuleCamera": true,
     "softAfkThresholdCamera": 20,
     "fullAfkThresholdCamera": 400,
-    "lastYawDistanceToCountAsThresholdCamera": 0.1,
+    "lastYawDistanceToCountAsThresholdCamera": 0.05,
     "lastPitchDistanceToCountAsThresholdCamera": 0.02,
 
     "enableModuleDeath": false,
@@ -20,6 +20,6 @@
 
     "kickWhenFullAfk": true,
     "kickMessageToPlayerKicked": "Disconnected due to being idle.",
-    "playerJoinInSoftAFKState": false,
+    "playerJoinInSoftAFKState": true,
     "enableExtendedLog": false
 }

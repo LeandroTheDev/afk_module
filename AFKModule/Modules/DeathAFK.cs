@@ -79,7 +79,7 @@ public class DeathAFK
         }
 
         if(Configuration.enableExtendedLog)
-            Debug.Log($"{_player.PlayerName}: Death Threshold: {actualthreshold}");
+            Debug.Log($"[Death] {_player.PlayerName}: Death Threshold: {actualthreshold}");
     }
 
     private void OnPlayerRespawn(IServerPlayer byPlayer)

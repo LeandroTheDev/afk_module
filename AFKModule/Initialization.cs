@@ -25,7 +25,9 @@ public class Initialization : ModSystem
         {
             Events.OnFullAFKCamera += KickAFKPlayer;
             Events.OnFullAFKMoviment += KickAFKPlayer;
+            Events.OnFullAFKDeath += KickAFKPlayer;
         }
+
         Debug.Log("Events created");
     }
 
@@ -131,18 +133,10 @@ public class Initialization : ModSystem
 
 public class Debug
 {
-    private static readonly OperatingSystem system = Environment.OSVersion;
     static private ILogger loggerForNonTerminalUsers;
 
     static public void LoadLogger(ILogger logger) => loggerForNonTerminalUsers = logger;
     static public void Log(string message)
-    {
-        // Check if is linux or other based system and if the terminal is active for the logs to be show
-        if (system.Platform == PlatformID.Unix || system.Platform == PlatformID.Other || Environment.UserInteractive)
-            // Based terminal users
-            Console.WriteLine($"{DateTime.Now:d.M.yyyy HH:mm:ss} [AFKModule] {message}");
-        else
-            // Unbased non terminal users
-            loggerForNonTerminalUsers?.Log(EnumLogType.Notification, $"[AFKModule] {message}");
-    }
+        => loggerForNonTerminalUsers?.Log(EnumLogType.Notification, $"[AFKModule] {message}");
+    
 }
