@@ -20,5 +20,6 @@
 
     "kickWhenFullAfk": true,
     "kickMessageToPlayerKicked": "Disconnected due to being idle.",
+    "playerJoinInSoftAFKState": false,
     "enableExtendedLog": false
 }
