@@ -10,7 +10,7 @@
     "softAfkThresholdCamera": 20,
     "fullAfkThresholdCamera": 400,
     "lastYawDistanceToCountAsThresholdCamera": 0.1,
-    "lastPitchDistanceToCountAsThresholdCamera": 0.1,
+    "lastPitchDistanceToCountAsThresholdCamera": 0.02,
 
     "enableModuleDeath": false,
     "softAfkThresholdDeath": 0,
