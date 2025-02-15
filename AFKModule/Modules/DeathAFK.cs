@@ -77,6 +77,9 @@ public class DeathAFK
                 Events.InvokeExitFullAFKDeath(_player);
             }
         }
+
+        if(Configuration.enableExtendedLog)
+            Debug.Log($"{_player.PlayerName}: Death Threshold: {actualthreshold}");
     }
 
     private void OnPlayerRespawn(IServerPlayer byPlayer)
